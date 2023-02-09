@@ -1,0 +1,50 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace C969Assessment
+{
+    public partial class AddCustomerScreen : Form
+    {
+        public AddCustomerScreen()
+        {
+            InitializeComponent();
+
+            createDatePicker.Format = DateTimePickerFormat.Custom;
+            createDatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            lastUpdatePicker.Format = DateTimePickerFormat.Custom;
+            lastUpdatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+
+            custIdBox.Text = (Customer.custList[Customer.custList.Count - 1].Id + 1).ToString();
+            createDatePicker.Value = DateTime.Now;
+            createdByBox.Text = userContext.getUsername();
+            lastUpdatePicker.Value = DateTime.Now;
+            lastUpdateByBox.Text = userContext.getUsername();
+        }
+
+        private void submitBtn_Click(object sender, EventArgs e)
+        {
+            byte isActive = 0;
+            try
+            {
+                if (activeCombo.Text != "False")
+                {
+                    if (activeCombo.Text == "True")
+                    {
+                        isActive = 1;
+                    }
+                    else
+                    {
+                        throw new FormatException();
+                    }
+                }
+                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Int32.Parse(addressIdBox.Text), isActive, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
+                Customer.addToDb(newCustomer);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("All fields must be filled out correctly before continuing.", "Error adding customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.Close();
+        }
+    }
+}

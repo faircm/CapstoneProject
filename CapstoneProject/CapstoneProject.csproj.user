@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="AddAddressScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddAppointmentScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddCustomerScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddressScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AppointmentScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CustomerScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LoginPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModifyAddressScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModifyAppointmentScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ModifyCustomerScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReportsScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
