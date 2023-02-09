@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace C969Assessment
 {
     public partial class AddCustomerScreen : Form
     {
+        // 8 FEB 2023, modified form to allow address selection from combobox rather than requiring ID input
+        List<string> addressDataSource = new List<string>();
+
         public AddCustomerScreen()
         {
             InitializeComponent();
@@ -19,6 +23,21 @@ namespace C969Assessment
             createdByBox.Text = userContext.getUsername();
             lastUpdatePicker.Value = DateTime.Now;
             lastUpdateByBox.Text = userContext.getUsername();
+
+            foreach(Address address in Address.addressList)
+            {
+                if(address.address2.Length > 0)
+                {
+                    addressDataSource.Add(address.address + ", " + address.address2);
+                }
+                else
+                {
+                    addressDataSource.Add(address.address);
+                } 
+                    
+                
+            }
+            addressBox.DataSource = addressDataSource;
         }
 
         private void submitBtn_Click(object sender, EventArgs e)
@@ -37,7 +56,7 @@ namespace C969Assessment
                         throw new FormatException();
                     }
                 }
-                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Int32.Parse(addressIdBox.Text), isActive, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
+                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Address.returnAddressId(addressBox.SelectedItem.ToString()), isActive, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
                 Customer.addToDb(newCustomer);
             }
             catch (FormatException)

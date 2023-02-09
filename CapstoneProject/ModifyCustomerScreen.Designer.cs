@@ -29,7 +29,6 @@ namespace C969Assessment
         /// </summary>
         private void InitializeComponent()
         {
-            this.addressIdBox = new System.Windows.Forms.TextBox();
             this.custIdBox = new System.Windows.Forms.TextBox();
             this.custNameBox = new System.Windows.Forms.TextBox();
             this.createDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -47,14 +46,8 @@ namespace C969Assessment
             this.lastUpdateByBox = new System.Windows.Forms.TextBox();
             this.createdByBox = new System.Windows.Forms.TextBox();
             this.activeCombo = new System.Windows.Forms.ComboBox();
+            this.addressBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // addressIdBox
-            // 
-            this.addressIdBox.Location = new System.Drawing.Point(107, 79);
-            this.addressIdBox.Name = "addressIdBox";
-            this.addressIdBox.Size = new System.Drawing.Size(201, 20);
-            this.addressIdBox.TabIndex = 124;
             // 
             // custIdBox
             // 
@@ -210,13 +203,21 @@ namespace C969Assessment
             this.activeCombo.Size = new System.Drawing.Size(201, 21);
             this.activeCombo.TabIndex = 125;
             // 
+            // addressBox
+            // 
+            this.addressBox.FormattingEnabled = true;
+            this.addressBox.Location = new System.Drawing.Point(107, 76);
+            this.addressBox.Name = "addressBox";
+            this.addressBox.Size = new System.Drawing.Size(200, 21);
+            this.addressBox.TabIndex = 126;
+            // 
             // ModifyCustomerScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(326, 295);
+            this.Controls.Add(this.addressBox);
             this.Controls.Add(this.activeCombo);
-            this.Controls.Add(this.addressIdBox);
             this.Controls.Add(this.custIdBox);
             this.Controls.Add(this.custNameBox);
             this.Controls.Add(this.createDatePicker);
@@ -241,8 +242,6 @@ namespace C969Assessment
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox addressIdBox;
         private System.Windows.Forms.TextBox custIdBox;
         private System.Windows.Forms.TextBox custNameBox;
         private System.Windows.Forms.DateTimePicker createDatePicker;
@@ -260,5 +259,6 @@ namespace C969Assessment
         private System.Windows.Forms.TextBox lastUpdateByBox;
         private System.Windows.Forms.TextBox createdByBox;
         private System.Windows.Forms.ComboBox activeCombo;
+        private System.Windows.Forms.ComboBox addressBox;
     }
 }

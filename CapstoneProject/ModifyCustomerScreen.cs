@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace C969Assessment
 {
     public partial class ModifyCustomerScreen : Form
     {
+        // 8 FEB 2023, modified form to allow address selection from combobox rather than requiring ID input
+        List<string> addressDataSource = new List<string>();
         public ModifyCustomerScreen(DataGridViewRow currentRow)
         {
             InitializeComponent();
@@ -17,9 +20,24 @@ namespace C969Assessment
             lastUpdatePicker.Value = DateTime.Now;
             Customer selectedCust = (Customer)currentRow.DataBoundItem;
 
+            foreach (Address address in Address.addressList)
+            {
+                if (address.address2.Length > 0)
+                {
+                    addressDataSource.Add(address.address + ", " + address.address2);
+                }
+                else
+                {
+                    addressDataSource.Add(address.address);
+                }
+
+            }
+            addressBox.DataSource = addressDataSource;
+
             custIdBox.Text = selectedCust.Id.ToString();
             custNameBox.Text = selectedCust.customerName;
-            addressIdBox.Text = selectedCust.addressId.ToString();
+
+            addressBox.SelectedItem = Address.returnAddressStr(selectedCust.addressId);
             createDatePicker.Value = DateTime.Parse(selectedCust.createDate);
             createdByBox.Text = selectedCust.createdBy;
             lastUpdatePicker.Value = DateTime.Now;
@@ -45,7 +63,7 @@ namespace C969Assessment
                     activeVal = 1;
                 }
 
-                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Int32.Parse(addressIdBox.Text), activeVal, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
+                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Address.returnAddressId(addressBox.SelectedItem.ToString()), activeVal, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
 
                 Customer.modifyDb(newCustomer);
             }

@@ -45,8 +45,8 @@ namespace C969Assessment
             this.createdByBox = new System.Windows.Forms.TextBox();
             this.custNameBox = new System.Windows.Forms.TextBox();
             this.custIdBox = new System.Windows.Forms.TextBox();
-            this.addressIdBox = new System.Windows.Forms.TextBox();
             this.activeCombo = new System.Windows.Forms.ComboBox();
+            this.addressBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // createDatePicker
@@ -123,11 +123,11 @@ namespace C969Assessment
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(52, 76);
+            this.label3.Location = new System.Drawing.Point(64, 76);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 85;
-            this.label3.Text = "Address ID";
+            this.label3.Text = "Address";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label2
@@ -191,13 +191,6 @@ namespace C969Assessment
             this.custIdBox.Size = new System.Drawing.Size(201, 20);
             this.custIdBox.TabIndex = 104;
             // 
-            // addressIdBox
-            // 
-            this.addressIdBox.Location = new System.Drawing.Point(115, 76);
-            this.addressIdBox.Name = "addressIdBox";
-            this.addressIdBox.Size = new System.Drawing.Size(201, 20);
-            this.addressIdBox.TabIndex = 106;
-            // 
             // activeCombo
             // 
             this.activeCombo.FormattingEnabled = true;
@@ -210,13 +203,21 @@ namespace C969Assessment
             this.activeCombo.TabIndex = 107;
             this.activeCombo.Text = "True";
             // 
+            // addressBox
+            // 
+            this.addressBox.FormattingEnabled = true;
+            this.addressBox.Location = new System.Drawing.Point(116, 73);
+            this.addressBox.Name = "addressBox";
+            this.addressBox.Size = new System.Drawing.Size(200, 21);
+            this.addressBox.TabIndex = 108;
+            // 
             // AddCustomerScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 289);
+            this.Controls.Add(this.addressBox);
             this.Controls.Add(this.activeCombo);
-            this.Controls.Add(this.addressIdBox);
             this.Controls.Add(this.custIdBox);
             this.Controls.Add(this.custNameBox);
             this.Controls.Add(this.createDatePicker);
@@ -258,7 +259,7 @@ namespace C969Assessment
         private System.Windows.Forms.TextBox createdByBox;
         private System.Windows.Forms.TextBox custNameBox;
         private System.Windows.Forms.TextBox custIdBox;
-        private System.Windows.Forms.TextBox addressIdBox;
         private System.Windows.Forms.ComboBox activeCombo;
+        private System.Windows.Forms.ComboBox addressBox;
     }
 }
