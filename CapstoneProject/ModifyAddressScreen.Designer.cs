@@ -47,10 +47,10 @@ namespace C969Assessment
             this.lastUpdateByBox = new System.Windows.Forms.TextBox();
             this.createdByBox = new System.Windows.Forms.TextBox();
             this.postalCodeBox = new System.Windows.Forms.TextBox();
-            this.cityIdBox = new System.Windows.Forms.TextBox();
             this.addLine2Box = new System.Windows.Forms.TextBox();
             this.addLine1Box = new System.Windows.Forms.TextBox();
             this.addIdBox = new System.Windows.Forms.TextBox();
+            this.cityBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // phoneNumBox
@@ -145,9 +145,9 @@ namespace C969Assessment
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(19, 117);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(24, 13);
             this.label4.TabIndex = 81;
-            this.label4.Text = "City ID";
+            this.label4.Text = "City";
             // 
             // label3
             // 
@@ -210,13 +210,6 @@ namespace C969Assessment
             this.postalCodeBox.Size = new System.Drawing.Size(200, 21);
             this.postalCodeBox.TabIndex = 74;
             // 
-            // cityIdBox
-            // 
-            this.cityIdBox.Location = new System.Drawing.Point(107, 117);
-            this.cityIdBox.Name = "cityIdBox";
-            this.cityIdBox.Size = new System.Drawing.Size(200, 20);
-            this.cityIdBox.TabIndex = 73;
-            // 
             // addLine2Box
             // 
             this.addLine2Box.Location = new System.Drawing.Point(107, 89);
@@ -240,11 +233,20 @@ namespace C969Assessment
             this.addIdBox.Size = new System.Drawing.Size(200, 20);
             this.addIdBox.TabIndex = 70;
             // 
+            // cityBox
+            // 
+            this.cityBox.FormattingEnabled = true;
+            this.cityBox.Location = new System.Drawing.Point(107, 114);
+            this.cityBox.Name = "cityBox";
+            this.cityBox.Size = new System.Drawing.Size(200, 21);
+            this.cityBox.TabIndex = 92;
+            // 
             // ModifyAddressScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 383);
+            this.Controls.Add(this.cityBox);
             this.Controls.Add(this.phoneNumBox);
             this.Controls.Add(this.createDatePicker);
             this.Controls.Add(this.lastUpdatePicker);
@@ -263,7 +265,6 @@ namespace C969Assessment
             this.Controls.Add(this.lastUpdateByBox);
             this.Controls.Add(this.createdByBox);
             this.Controls.Add(this.postalCodeBox);
-            this.Controls.Add(this.cityIdBox);
             this.Controls.Add(this.addLine2Box);
             this.Controls.Add(this.addLine1Box);
             this.Controls.Add(this.addIdBox);
@@ -294,9 +295,9 @@ namespace C969Assessment
         private System.Windows.Forms.TextBox lastUpdateByBox;
         private System.Windows.Forms.TextBox createdByBox;
         private System.Windows.Forms.TextBox postalCodeBox;
-        private System.Windows.Forms.TextBox cityIdBox;
         private System.Windows.Forms.TextBox addLine2Box;
         private System.Windows.Forms.TextBox addLine1Box;
         private System.Windows.Forms.TextBox addIdBox;
+        private System.Windows.Forms.ComboBox cityBox;
     }
 }

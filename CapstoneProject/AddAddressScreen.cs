@@ -12,6 +12,7 @@ namespace C969Assessment
 {
     public partial class AddAddressScreen : Form
     {
+        // 12 FEB 2023 - Updated form to show combobox of city names, ID fetched using Address.returnCityIt()
         public AddAddressScreen()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace C969Assessment
             createDatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             lastUpdatePicker.Value = DateTime.Now;
             createDatePicker.Value = DateTime.Now;
+            cityBox.DataSource = Address.cityDict.Values.ToList<string>();
 
             addIdBox.Text = (Address.addressList[Address.addressList.Count - 1].Id + 1).ToString();
             createdByBox.Text = userContext.getUsername();
@@ -34,7 +36,7 @@ namespace C969Assessment
         {
             try
             {
-                Address newAddress = new Address(Int32.Parse(addIdBox.Text), addLine1Box.Text, addLine2Box.Text, Int32.Parse(cityIdBox.Text), postalCodeBox.Text, phoneNumBox.Text, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
+                Address newAddress = new Address(Int32.Parse(addIdBox.Text), addLine1Box.Text, addLine2Box.Text, Address.returnCityId(cityBox.SelectedItem.ToString()), postalCodeBox.Text, phoneNumBox.Text, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
                 Address.addToDb(newAddress);
             }
             catch (FormatException)

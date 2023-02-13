@@ -13,8 +13,11 @@ namespace C969Assessment
         public string address { get; set; }
         public string address2 { get; set; }
         public int cityId { get; set; }
+        public string cityName { get; set; }
         public string postalCode { get; set; }
         public string phone { get; set; }
+
+        public static Dictionary<int, string> cityDict = getCityNames();
 
         public static MySqlDataAdapter dataAdapter = new MySqlDataAdapter("SELECT * FROM address", DatabaseConnection.connection);
 
@@ -31,6 +34,7 @@ namespace C969Assessment
             this.address = $"'{address}'";
             this.address2 = $"'{address2}'";
             this.cityId = cityId;
+            this.cityName = cityDict[cityId];
             this.postalCode = $"'{postalCode}'"; ;
             this.phone = $"'{phone}'"; ;
             this.createDate = $"'{createDate}'";
@@ -42,7 +46,7 @@ namespace C969Assessment
         }
 
         // Query database for all addresses, then store each in an Address object, which is then tracked in a list of addresses
-        public static List<Address> getAddresses()
+        private static List<Address> getAddresses()
         {
             List<Address> addresses = new List<Address>();
             reader = dataAdapter.SelectCommand.ExecuteReader();
@@ -66,6 +70,20 @@ namespace C969Assessment
 
             return addresses;
         }
+
+        private static Dictionary<int, string> getCityNames()
+        {
+            Dictionary<int, string> cityDict = new Dictionary<int, string>();
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter("SELECT cityId, city FROM city", DatabaseConnection.connection);
+            reader = dataAdapter.SelectCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                cityDict.Add(reader.GetInt32("cityId"), reader.GetString("city"));
+            }
+            reader.Close();
+            return cityDict;
+        }
+
 
         // Add an address to the database
         public static void addToDb(Address address)
@@ -103,6 +121,19 @@ namespace C969Assessment
             return addressId;
         }
 
+        public static int returnCityId(string cityName)
+        {
+            int cityId = 0;
+            foreach(KeyValuePair<int,string> pair in cityDict)
+            {
+                if (pair.Value == cityName)
+                {
+                    cityId = pair.Key;
+                }
+            }
+            return cityId;
+        }
+
         public static string returnAddressStr(int addressId)
         {
             string addressStr = "";
@@ -113,7 +144,7 @@ namespace C969Assessment
                     if(address.address2.Length > 0)
                     {
                         addressStr = $"{address.address}, {address.address2}";
-                    }
+                    } 
                     else
                     {
                         addressStr = $"{address.address}";

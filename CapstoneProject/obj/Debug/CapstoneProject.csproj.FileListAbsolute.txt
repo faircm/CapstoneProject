@@ -28,7 +28,6 @@ C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstonePro
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csproj.AssemblyReference.cache
-C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csproj.SuggestedBindingRedirects.cache
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.AddAddressScreen.resources
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.AddAppointmentScreen.resources
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.AddCustomerScreen.resources

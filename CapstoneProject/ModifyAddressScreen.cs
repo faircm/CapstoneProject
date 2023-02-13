@@ -14,6 +14,8 @@ namespace C969Assessment
     {
         public ModifyAddressScreen(DataGridViewRow address)
         {
+            // 12 FEB 2023 - Updated form to show combobox of city names, ID fetched using Address.returnCityIt()
+
             InitializeComponent();
 
             string currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -28,20 +30,19 @@ namespace C969Assessment
             addIdBox.Text = selectedAdd.Id.ToString();
             addLine1Box.Text = selectedAdd.address;
             addLine2Box.Text = selectedAdd.address2;
-            cityIdBox.Text = selectedAdd.cityId.ToString();
+            cityBox.DataSource = Address.cityDict.Values.ToList<string>();
             postalCodeBox.Text = selectedAdd.postalCode;
-            phoneNumBox.Text = selectedAdd.phone;      
+            phoneNumBox.Text = selectedAdd.phone;
             createDatePicker.Value = DateTime.Parse(selectedAdd.createDate);
             createdByBox.Text = selectedAdd.createdBy;
             lastUpdateByBox.Text = userContext.getUsername();
-
-}
+        }
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                Address newAdd = new Address(Int32.Parse(addIdBox.Text), addLine1Box.Text, addLine2Box.Text, Int32.Parse(cityIdBox.Text), postalCodeBox.Text, phoneNumBox.Text, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text); ;
+                Address newAdd = new Address(Int32.Parse(addIdBox.Text), addLine1Box.Text, addLine2Box.Text, Address.returnCityId(cityBox.SelectedItem.ToString()), postalCodeBox.Text, phoneNumBox.Text, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text); ;
 
                 Address.modifyDb(newAdd);
 
