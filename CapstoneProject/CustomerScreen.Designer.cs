@@ -36,13 +36,14 @@ namespace C969Assessment
             this.addCustBtn = new System.Windows.Forms.Button();
             this.customerList = new System.Windows.Forms.DataGridView();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.searchBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // refreshBtn
             // 
-            this.refreshBtn.Location = new System.Drawing.Point(12, 385);
+            this.refreshBtn.Location = new System.Drawing.Point(12, 400);
             this.refreshBtn.Name = "refreshBtn";
             this.refreshBtn.Size = new System.Drawing.Size(105, 35);
             this.refreshBtn.TabIndex = 11;
@@ -52,7 +53,7 @@ namespace C969Assessment
             // 
             // delCustBtn
             // 
-            this.delCustBtn.Location = new System.Drawing.Point(683, 385);
+            this.delCustBtn.Location = new System.Drawing.Point(683, 400);
             this.delCustBtn.Name = "delCustBtn";
             this.delCustBtn.Size = new System.Drawing.Size(105, 35);
             this.delCustBtn.TabIndex = 10;
@@ -62,7 +63,7 @@ namespace C969Assessment
             // 
             // modCustBtn
             // 
-            this.modCustBtn.Location = new System.Drawing.Point(572, 385);
+            this.modCustBtn.Location = new System.Drawing.Point(572, 400);
             this.modCustBtn.Name = "modCustBtn";
             this.modCustBtn.Size = new System.Drawing.Size(105, 35);
             this.modCustBtn.TabIndex = 9;
@@ -72,7 +73,7 @@ namespace C969Assessment
             // 
             // addCustBtn
             // 
-            this.addCustBtn.Location = new System.Drawing.Point(461, 385);
+            this.addCustBtn.Location = new System.Drawing.Point(461, 400);
             this.addCustBtn.Name = "addCustBtn";
             this.addCustBtn.Size = new System.Drawing.Size(105, 35);
             this.addCustBtn.TabIndex = 8;
@@ -84,7 +85,7 @@ namespace C969Assessment
             // 
             this.customerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.customerList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.customerList.Location = new System.Drawing.Point(12, 31);
+            this.customerList.Location = new System.Drawing.Point(12, 46);
             this.customerList.MultiSelect = false;
             this.customerList.Name = "customerList";
             this.customerList.RowHeadersVisible = false;
@@ -96,11 +97,22 @@ namespace C969Assessment
             // 
             this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
             // 
+            // searchBtn
+            // 
+            this.searchBtn.Location = new System.Drawing.Point(683, 5);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(105, 35);
+            this.searchBtn.TabIndex = 19;
+            this.searchBtn.Text = "Search";
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
             // CustomerScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.delCustBtn);
             this.Controls.Add(this.modCustBtn);
@@ -122,5 +134,6 @@ namespace C969Assessment
         private System.Windows.Forms.Button addCustBtn;
         public System.Windows.Forms.DataGridView customerList;
         private System.Windows.Forms.BindingSource appointmentBindingSource;
+        private System.Windows.Forms.Button searchBtn;
     }
 }

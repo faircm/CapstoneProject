@@ -46,5 +46,11 @@ namespace C969Assessment
             customerList.DataSource = null;
             customerList.DataSource = Customer.custList;
         }
+
+        private void searchBtn_Click(object sender, System.EventArgs e)
+        {
+            SearchScreen searchScreen = new SearchScreen(this);
+            searchScreen.Show();
+        }
     }
 }

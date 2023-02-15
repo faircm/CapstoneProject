@@ -46,3 +46,5 @@ C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstonePro
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csproj.CopyComplete
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.exe
 C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.pdb
+C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\CapstoneProject.csproj.SuggestedBindingRedirects.cache
+C:\Users\cmfai\Desktop\Software Development Capstone\CapstoneProject\CapstoneProject\obj\Debug\C969Assessment.SearchScreen.resources

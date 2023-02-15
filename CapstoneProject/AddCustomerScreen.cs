@@ -24,18 +24,18 @@ namespace C969Assessment
             lastUpdatePicker.Value = DateTime.Now;
             lastUpdateByBox.Text = userContext.getUsername();
 
-            foreach(Address address in Address.addressList)
+            foreach (Address address in Address.addressList)
             {
-                if(address.address2.Length > 0)
+                if (address.address2.Length > 0)
                 {
                     addressDataSource.Add(address.address + ", " + address.address2);
                 }
                 else
                 {
                     addressDataSource.Add(address.address);
-                } 
-                    
-                
+                }
+
+
             }
             addressBox.DataSource = addressDataSource;
         }

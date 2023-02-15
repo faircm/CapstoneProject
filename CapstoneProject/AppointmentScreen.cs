@@ -55,5 +55,11 @@ namespace C969Assessment
             appointmentList.DataSource = null;
             appointmentList.DataSource = Appointment.apptList;
         }
+
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            SearchScreen searchScreen = new SearchScreen(this);
+            searchScreen.Show();
+        }
     }
 }

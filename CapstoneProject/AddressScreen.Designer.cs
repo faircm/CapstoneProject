@@ -35,6 +35,7 @@ namespace C969Assessment
             this.modAddBtn = new System.Windows.Forms.Button();
             this.addAddBtn = new System.Windows.Forms.Button();
             this.addressList = new System.Windows.Forms.DataGridView();
+            this.searchBtn = new System.Windows.Forms.Button();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.addressList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
@@ -42,7 +43,7 @@ namespace C969Assessment
             // 
             // refreshBtn
             // 
-            this.refreshBtn.Location = new System.Drawing.Point(12, 385);
+            this.refreshBtn.Location = new System.Drawing.Point(12, 400);
             this.refreshBtn.Name = "refreshBtn";
             this.refreshBtn.Size = new System.Drawing.Size(105, 35);
             this.refreshBtn.TabIndex = 16;
@@ -52,7 +53,7 @@ namespace C969Assessment
             // 
             // delAddBtn
             // 
-            this.delAddBtn.Location = new System.Drawing.Point(683, 385);
+            this.delAddBtn.Location = new System.Drawing.Point(683, 400);
             this.delAddBtn.Name = "delAddBtn";
             this.delAddBtn.Size = new System.Drawing.Size(105, 35);
             this.delAddBtn.TabIndex = 15;
@@ -62,7 +63,7 @@ namespace C969Assessment
             // 
             // modAddBtn
             // 
-            this.modAddBtn.Location = new System.Drawing.Point(572, 385);
+            this.modAddBtn.Location = new System.Drawing.Point(572, 400);
             this.modAddBtn.Name = "modAddBtn";
             this.modAddBtn.Size = new System.Drawing.Size(105, 35);
             this.modAddBtn.TabIndex = 14;
@@ -72,7 +73,7 @@ namespace C969Assessment
             // 
             // addAddBtn
             // 
-            this.addAddBtn.Location = new System.Drawing.Point(461, 385);
+            this.addAddBtn.Location = new System.Drawing.Point(461, 400);
             this.addAddBtn.Name = "addAddBtn";
             this.addAddBtn.Size = new System.Drawing.Size(105, 35);
             this.addAddBtn.TabIndex = 13;
@@ -84,13 +85,23 @@ namespace C969Assessment
             // 
             this.addressList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.addressList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.addressList.Location = new System.Drawing.Point(12, 31);
+            this.addressList.Location = new System.Drawing.Point(12, 46);
             this.addressList.MultiSelect = false;
             this.addressList.Name = "addressList";
             this.addressList.RowHeadersVisible = false;
             this.addressList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.addressList.Size = new System.Drawing.Size(776, 348);
             this.addressList.TabIndex = 12;
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Location = new System.Drawing.Point(683, 5);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(105, 35);
+            this.searchBtn.TabIndex = 17;
+            this.searchBtn.Text = "Search";
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
             // appointmentBindingSource
             // 
@@ -101,6 +112,7 @@ namespace C969Assessment
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.delAddBtn);
             this.Controls.Add(this.modAddBtn);
@@ -122,5 +134,6 @@ namespace C969Assessment
         private System.Windows.Forms.Button addAddBtn;
         public System.Windows.Forms.DataGridView addressList;
         private System.Windows.Forms.BindingSource appointmentBindingSource;
+        private System.Windows.Forms.Button searchBtn;
     }
 }

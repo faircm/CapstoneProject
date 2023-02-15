@@ -1,9 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace C969Assessment
 {
@@ -106,9 +102,9 @@ namespace C969Assessment
         {
             int addressId = 0;
             string[] address = addressStr.Split(',');
-            if(address.Length == 1)
+            if (address.Length == 1)
             {
-                MySqlCommand findCmd = new MySqlCommand("SELECT addressId FROM address WHERE address = \"" + address[0].Trim() +"\"", DatabaseConnection.connection);
+                MySqlCommand findCmd = new MySqlCommand("SELECT addressId FROM address WHERE address = \"" + address[0].Trim() + "\"", DatabaseConnection.connection);
                 addressId = (int)findCmd.ExecuteScalar();
             }
             else
@@ -116,7 +112,7 @@ namespace C969Assessment
                 MySqlCommand findCmd = new MySqlCommand("SELECT addressId FROM address WHERE address = \"" + address[0].Trim() + "\" AND address2 = \"" + address[1].Trim() + "\"", DatabaseConnection.connection);
                 addressId = (int)findCmd.ExecuteScalar();
             }
-           
+
 
             return addressId;
         }
@@ -124,7 +120,7 @@ namespace C969Assessment
         public static int returnCityId(string cityName)
         {
             int cityId = 0;
-            foreach(KeyValuePair<int,string> pair in cityDict)
+            foreach (KeyValuePair<int, string> pair in cityDict)
             {
                 if (pair.Value == cityName)
                 {
@@ -137,19 +133,19 @@ namespace C969Assessment
         public static string returnAddressStr(int addressId)
         {
             string addressStr = "";
-            foreach(Address address in Address.addressList)
+            foreach (Address address in Address.addressList)
             {
-                if(address.Id == addressId)
+                if (address.Id == addressId)
                 {
-                    if(address.address2.Length > 0)
+                    if (address.address2.Length > 0)
                     {
                         addressStr = $"{address.address}, {address.address2}";
-                    } 
+                    }
                     else
                     {
                         addressStr = $"{address.address}";
                     }
-                    
+
                 }
             }
             return addressStr;

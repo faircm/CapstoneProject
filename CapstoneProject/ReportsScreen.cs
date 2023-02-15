@@ -1,8 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -183,7 +181,7 @@ namespace C969Assessment
             {
                 apptCountBox.Text += appt + "\n\n";
             }
-            
+
             apptCountBox.Visible = true;
         }
 
@@ -213,7 +211,7 @@ namespace C969Assessment
         // 7 FEB 2023 - Added download report functionality
         private void downloadBtn_Click(object sender, EventArgs e)
         {
-            if(selectedReport == 1)
+            if (selectedReport == 1)
             {
                 StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "appointmentList.csv"));
 
@@ -224,20 +222,22 @@ namespace C969Assessment
                 }
                 MessageBox.Show("Meeting report downloaded to My Documents folder", "Success", MessageBoxButtons.OK);
                 writer.Close();
-            } else if(selectedReport == 2)
+            }
+            else if (selectedReport == 2)
             {
                 StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "userAppointments.csv"));
                 foreach (Appointment appt in userAppts)
                 {
-                    
+
                     writer.Write(appt.toString());
                 }
                 MessageBox.Show("User schedule downloaded to My Documents folder", "Success", MessageBoxButtons.OK);
                 writer.Close();
-            } else if(selectedReport == 3)
+            }
+            else if (selectedReport == 3)
             {
                 StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "customerAppointments.csv"));
-                
+
                 foreach (Appointment appt in custAppts)
                 {
                     writer.Write(appt.toString());
