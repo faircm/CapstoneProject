@@ -10,7 +10,6 @@ namespace C969Assessment
         public static string connectionStr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
         public static MySqlConnection connection = new MySqlConnection(connectionStr);
 
-
         public static void openConnection()
         {
             try

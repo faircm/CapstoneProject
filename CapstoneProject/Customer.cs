@@ -34,6 +34,31 @@ namespace C969Assessment
             custList.Add(this);
         }
 
+        public static List<Customer> getCustomers(string searchStr)
+        {
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
+
+            List<Customer> customers = new List<Customer>();
+            reader = dataAdapter.SelectCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Customer customer = new Customer();
+                customer.Id = reader.GetInt32("customerId");
+                customer.customerName = reader.GetString("customerName");
+                customer.addressId = reader.GetInt32("addressId");
+                customer.active = reader.GetByte("active");
+                customer.createDate = reader.GetDateTime("createDate").ToLocalTime().ToString();
+                customer.createdBy = reader.GetString("createdBy");
+                customer.lastUpdate = reader.GetDateTime("lastUpdate").ToLocalTime().ToString();
+                customer.lastUpdateBy = reader.GetString("lastUpdateBy");
+
+                customers.Add(customer);
+            }
+            reader.Close();
+
+            return customers;
+        }
+
         // Query database for all customers, then store each in a Customer object, which is then tracked in a list of customers
         public static List<Customer> getCustomers()
         {
@@ -74,5 +99,45 @@ namespace C969Assessment
 
             custList = getCustomers();
         }
+
+        public static string getNameById(int id)
+        {
+            MySqlCommand searchCmd = new MySqlCommand($"SELECT customerName FROM customer WHERE customerId = {id}", DatabaseConnection.connection);
+            string name = "";
+            reader = searchCmd.ExecuteReader();
+            if (reader.Read())
+            {
+                name = reader.GetString("customerName");
+            }
+            reader.Close();
+
+            return name;
+        }
+
+        public static int getIdByName(string name)
+        {
+            int id = 0;
+            MySqlCommand searchCmd = new MySqlCommand($"SELECT customerId FROM customer WHERE customerName LIKE '%{name}%'", DatabaseConnection.connection);
+            reader = searchCmd.ExecuteReader();
+            if (reader.Read())
+            {
+                id = reader.GetInt32("customerId");
+            }
+            reader.Close();
+            return id;
+        }
+
+        public static bool custHasAddress(int addressId)
+        {
+            foreach (Customer customer in custList)
+            {
+                if (customer.addressId == addressId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

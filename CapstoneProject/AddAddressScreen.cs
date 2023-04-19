@@ -42,7 +42,7 @@ namespace C969Assessment
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
     }
 }

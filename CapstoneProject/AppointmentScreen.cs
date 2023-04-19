@@ -6,7 +6,6 @@ namespace C969Assessment
 {
     public partial class AppointmentScreen : Form
     {
-        private AddAppointmentScreen addAppointmentScreen = new AddAppointmentScreen();
 
         public AppointmentScreen()
         {
@@ -31,6 +30,7 @@ namespace C969Assessment
         private void refreshBtn_Click(object sender, EventArgs e)
         {
             appointmentList.DataSource = null;
+            Appointment.apptList = Appointment.getAppts();
             appointmentList.DataSource = Appointment.apptList;
         }
 
@@ -58,8 +58,10 @@ namespace C969Assessment
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            SearchScreen searchScreen = new SearchScreen(this);
-            searchScreen.Show();
+            //IMPLEMENT
+            AppointmentSearch appointmentSearch = new AppointmentSearch();
+            appointmentSearch.Show();
+            appointmentSearch.Focus();
         }
     }
 }

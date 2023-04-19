@@ -35,8 +35,8 @@ namespace C969Assessment
             this.modApptBtn = new System.Windows.Forms.Button();
             this.delApptBtn = new System.Windows.Forms.Button();
             this.refreshBtn = new System.Windows.Forms.Button();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.searchBtn = new System.Windows.Forms.Button();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.appointmentList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +52,8 @@ namespace C969Assessment
             this.appointmentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.appointmentList.Size = new System.Drawing.Size(776, 348);
             this.appointmentList.TabIndex = 0;
+            this.appointmentList.Enter += new System.EventHandler(this.refreshBtn_Click);
+            this.appointmentList.MouseEnter += new System.EventHandler(this.refreshBtn_Click);
             // 
             // addApptBtn
             // 
@@ -93,10 +95,6 @@ namespace C969Assessment
             this.refreshBtn.UseVisualStyleBackColor = true;
             this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
             // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
-            // 
             // searchBtn
             // 
             this.searchBtn.Location = new System.Drawing.Point(683, 5);
@@ -106,6 +104,10 @@ namespace C969Assessment
             this.searchBtn.Text = "Search";
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
             // 
             // AppointmentScreen
             // 

@@ -23,6 +23,7 @@ namespace C969Assessment
         private void refreshBtn_Click(object sender, EventArgs e)
         {
             addressList.DataSource = null;
+            Address.addressList = Address.getAddresses();
             addressList.DataSource = Address.addressList;
         }
 
@@ -58,8 +59,9 @@ namespace C969Assessment
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            SearchScreen searchScreen = new SearchScreen(this);
-            searchScreen.Show();
+            AddressSearch addressSearch = new AddressSearch();
+            addressSearch.Show();
+            addressSearch.Focus();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace C969Assessment
             this.address = $"'{address}'";
             this.address2 = $"'{address2}'";
             this.cityId = cityId;
-            this.cityName = cityDict[cityId];
+            this.cityName = "";
             this.postalCode = $"'{postalCode}'"; ;
             this.phone = $"'{phone}'"; ;
             this.createDate = $"'{createDate}'";
@@ -41,8 +41,37 @@ namespace C969Assessment
             addressList.Add(this);
         }
 
+        public static List<Address> getAddresses(string searchStr)
+        {
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
+
+            List<Address> addresses = new List<Address>();
+            reader = dataAdapter.SelectCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Address address = new Address();
+                address.Id = reader.GetInt32("addressId");
+                address.address = reader.GetString("address");
+                address.address2 = reader.GetString("address2");
+                address.cityId = reader.GetInt32("cityId");
+                address.cityName = getCityById(address.cityId);
+                address.postalCode = reader.GetString("postalCode");
+                address.phone = reader.GetString("phone");
+                address.createDate = reader.GetDateTime("createDate").ToLocalTime().ToString();
+                address.createdBy = reader.GetString("createdBy");
+                address.lastUpdate = reader.GetDateTime("lastUpdate").ToLocalTime().ToString();
+                address.lastUpdateBy = reader.GetString("lastUpdateBy");
+
+                addresses.Add(address);
+            }
+            reader.Close();
+
+            return addresses;
+        }
+
         // Query database for all addresses, then store each in an Address object, which is then tracked in a list of addresses
-        private static List<Address> getAddresses()
+        public static List<Address> getAddresses()
         {
             List<Address> addresses = new List<Address>();
             reader = dataAdapter.SelectCommand.ExecuteReader();
@@ -53,6 +82,7 @@ namespace C969Assessment
                 address.address = reader.GetString("address");
                 address.address2 = reader.GetString("address2");
                 address.cityId = reader.GetInt32("cityId");
+                address.cityName = getCityById(address.cityId);
                 address.postalCode = reader.GetString("postalCode");
                 address.phone = reader.GetString("phone");
                 address.createDate = reader.GetDateTime("createDate").ToLocalTime().ToString();
@@ -119,15 +149,27 @@ namespace C969Assessment
 
         public static int returnCityId(string cityName)
         {
-            int cityId = 0;
             foreach (KeyValuePair<int, string> pair in cityDict)
             {
                 if (pair.Value == cityName)
                 {
-                    cityId = pair.Key;
+                    return pair.Key;
                 }
             }
-            return cityId;
+            return -1;
+        }
+
+        public static string getCityById(int cityId)
+        {
+            foreach (KeyValuePair<int, string> pair in cityDict)
+            {
+                if (pair.Key == cityId)
+                {
+                    return pair.Value;
+                }
+
+            }
+            return "undefined";
         }
 
         public static string returnAddressStr(int addressId)
@@ -150,5 +192,19 @@ namespace C969Assessment
             }
             return addressStr;
         }
+
+        public static int getIdByAddress(string address)
+        {
+            int id = 0;
+            MySqlCommand searchCmd = new MySqlCommand($"SELECT addressId FROM address WHERE address LIKE '%{address}%'", DatabaseConnection.connection);
+            reader = searchCmd.ExecuteReader();
+            if (reader.Read())
+            {
+                id = reader.GetInt32("addressId");
+            }
+            reader.Close();
+            return id;
+        }
+
     }
 }

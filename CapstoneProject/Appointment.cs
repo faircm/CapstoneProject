@@ -85,6 +85,44 @@ namespace C969Assessment
             return appointments;
         }
 
+        // Overload for searching
+        public static List<Appointment> getAppts(string searchStr)
+        {
+
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
+
+            List<Appointment> appointments = new List<Appointment>();
+            reader = dataAdapter.SelectCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                Appointment appointment = new Appointment();
+                appointment.Id = reader.GetInt32("appointmentId");
+                appointment.customerId = reader.GetInt32("customerId");
+                appointment.userId = reader.GetInt32("userId");
+                appointment.title = reader.GetString("title");
+                appointment.description = reader.GetString("description");
+                appointment.location = reader.GetString("location");
+                appointment.contact = reader.GetString("contact");
+                appointment.type = reader.GetString("type");
+                appointment.url = reader.GetString("url");
+                appointment.start = reader.GetDateTime("start").ToLocalTime().ToString();
+                appointment.end = reader.GetDateTime("end").ToLocalTime().ToString();
+                appointment.createDate = reader.GetDateTime("createDate").ToLocalTime().ToString();
+                appointment.createdBy = reader.GetString("createdBy");
+                //appointment.lastUpdate = reader.GetDateTime("lastUpdate").ToLocalTime().ToString().TrimStart('\'').TrimEnd('\'');
+                int columnNum = reader.GetOrdinal("lastUpdate");
+                object dataType = reader.GetValue(columnNum);
+                string lastUpdateStr = reader.GetValue(columnNum).ToString();
+                appointment.lastUpdate = DateTime.Parse(lastUpdateStr).ToLocalTime().ToString();
+                appointment.lastUpdateBy = reader.GetString("lastUpdateBy");
+
+                appointments.Add(appointment);
+            }
+            reader.Close();
+
+            return appointments;
+        }
+
         // Return all appointments matching the current user's userId
         public static List<Appointment> getCurrentUserAppts(int userId)
         {
@@ -172,7 +210,7 @@ namespace C969Assessment
             return returnList;
         }
 
-        // Formatted to aid report in creation
+        // Formatted to aid in report creation
         public string toString()
         {
             return $"User: {this.userId}" +

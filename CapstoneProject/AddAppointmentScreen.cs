@@ -8,7 +8,15 @@ namespace C969Assessment
         public AddAppointmentScreen()
         {
             InitializeComponent();
-            apptIdBox.Text = (Appointment.apptList[Appointment.apptList.Count - 1].Id + 1).ToString();
+            if (Appointment.apptList.Count == 0)
+            {
+                apptIdBox.Text = "1";
+            }
+            else
+            {
+                apptIdBox.Text = (Appointment.apptList[Appointment.apptList.Count - 1].Id + 1).ToString();
+            }
+
             userIdBox.Text = userContext.getUserId().ToString();
             lastUpdatePicker.Value = DateTime.Now;
             createDatePicker.Value = DateTime.Now;
@@ -28,6 +36,7 @@ namespace C969Assessment
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            bool custExists = false;
             try
             {
                 if (startTimePicker.Value.Hour < 9 || (startTimePicker.Value.Hour == 17 && (startTimePicker.Value.Minute > 0 || startTimePicker.Value.Second > 0)) || (endTimePicker.Value.Hour < 9 || (endTimePicker.Value.Hour == 17 && (endTimePicker.Value.Minute > 0 || endTimePicker.Value.Second > 0))))
@@ -53,6 +62,20 @@ namespace C969Assessment
                         }
                     }
                 }
+
+                foreach (Customer cust in Customer.custList)
+                {
+                    if (Int32.Parse(custIdBox.Text) == cust.Id)
+                    {
+                        custExists = true;
+                    }
+                }
+                if (!custExists)
+                {
+                    MessageBox.Show("There is no customer with that ID.", "Error adding appointment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 Appointment newAppt = new Appointment(Int32.Parse(apptIdBox.Text), Int32.Parse(custIdBox.Text), Int32.Parse(userIdBox.Text), titleBox.Text, descBox.Text, locationBox.Text, contactBox.Text, typeBox.Text, urlBox.Text, startTimePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), endTimePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
 
                 Appointment.addToDb(newAppt);
@@ -75,7 +98,7 @@ namespace C969Assessment
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
     }
 }

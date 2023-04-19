@@ -92,6 +92,8 @@ namespace C969Assessment
             this.addressList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.addressList.Size = new System.Drawing.Size(776, 348);
             this.addressList.TabIndex = 12;
+            this.addressList.Enter += new System.EventHandler(this.refreshBtn_Click);
+            this.addressList.MouseEnter += new System.EventHandler(this.refreshBtn_Click);
             // 
             // searchBtn
             // 
