@@ -22,6 +22,11 @@ namespace C969Assessment
 
         private void modApptBtn_Click(object sender, EventArgs e)
         {
+            bool isNull = (appointmentList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
             ModifyAppointmentScreen modifyAppointmentScreen = new ModifyAppointmentScreen(appointmentList.CurrentRow);
             modifyAppointmentScreen.Show();
             modifyAppointmentScreen.Focus();
@@ -37,8 +42,11 @@ namespace C969Assessment
         private void delApptBtn_Click(object sender, EventArgs e)
         {
             MySqlDataReader reader;
+            if (appointmentList.SelectedRows.Count == 0)
+            {
+                return;
+            }
             DataGridViewSelectedRowCollection deleteRows = appointmentList.SelectedRows;
-
             foreach (DataGridViewRow row in deleteRows)
             {
                 Appointment newAppt = (Appointment)row.DataBoundItem;
@@ -48,6 +56,13 @@ namespace C969Assessment
 
                 Appointment.apptList.Remove(newAppt);
             }
+
+            refreshBtn_Click(null, null);
+
+            /*            appointmentList.DataSource = null;
+                        Appointment.apptList = Appointment.getAppts();
+                        appointmentList.DataSource = Appointment.apptList;*/
+
         }
 
         private void AppointmentScreen_Enter(object sender, EventArgs e)

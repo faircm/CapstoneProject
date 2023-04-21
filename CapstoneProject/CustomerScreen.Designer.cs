@@ -35,8 +35,8 @@ namespace C969Assessment
             this.modCustBtn = new System.Windows.Forms.Button();
             this.addCustBtn = new System.Windows.Forms.Button();
             this.customerList = new System.Windows.Forms.DataGridView();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.searchBtn = new System.Windows.Forms.Button();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.customerList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -93,10 +93,6 @@ namespace C969Assessment
             this.customerList.Size = new System.Drawing.Size(776, 348);
             this.customerList.TabIndex = 7;
             // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
-            // 
             // searchBtn
             // 
             this.searchBtn.Location = new System.Drawing.Point(683, 5);
@@ -106,6 +102,10 @@ namespace C969Assessment
             this.searchBtn.Text = "Search";
             this.searchBtn.UseVisualStyleBackColor = true;
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
             // 
             // CustomerScreen
             // 
@@ -120,6 +120,7 @@ namespace C969Assessment
             this.Controls.Add(this.customerList);
             this.Name = "CustomerScreen";
             this.Text = "Customers";
+            this.Activated += new System.EventHandler(this.refreshBtn_Click);
             ((System.ComponentModel.ISupportInitialize)(this.customerList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.ResumeLayout(false);

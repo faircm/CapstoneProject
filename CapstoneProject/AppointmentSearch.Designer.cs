@@ -270,6 +270,7 @@
             this.Controls.Add(this.apptList);
             this.Name = "AppointmentSearch";
             this.Text = "Appointment Search";
+            this.Activated += new System.EventHandler(this.refreshList);
             ((System.ComponentModel.ISupportInitialize)(this.apptList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

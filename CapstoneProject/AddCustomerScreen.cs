@@ -13,12 +13,19 @@ namespace C969Assessment
         {
             InitializeComponent();
 
+            if (Customer.custList.Count == 0)
+            {
+                custIdBox.Text = "1";
+            }
+            else
+            {
+                custIdBox.Text = (Customer.custList[Customer.custList.Count - 1].Id + 1).ToString();
+            }
+
             createDatePicker.Format = DateTimePickerFormat.Custom;
             createDatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             lastUpdatePicker.Format = DateTimePickerFormat.Custom;
             lastUpdatePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-
-            custIdBox.Text = (Customer.custList[Customer.custList.Count - 1].Id + 1).ToString();
             createDatePicker.Value = DateTime.Now;
             createdByBox.Text = userContext.getUsername();
             lastUpdatePicker.Value = DateTime.Now;

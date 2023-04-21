@@ -222,6 +222,7 @@
             this.Controls.Add(this.addrList);
             this.Name = "AddressSearch";
             this.Text = "AddressSearch";
+            this.Activated += new System.EventHandler(this.refreshList);
             ((System.ComponentModel.ISupportInitialize)(this.addrList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

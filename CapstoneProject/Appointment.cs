@@ -92,6 +92,11 @@ namespace C969Assessment
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
 
             List<Appointment> appointments = new List<Appointment>();
+
+            if (searchStr.Length == 0)
+            {
+                return appointments;
+            }
             reader = dataAdapter.SelectCommand.ExecuteReader();
             while (reader.Read())
             {
@@ -182,16 +187,27 @@ namespace C969Assessment
             apptList = getAppts();
         }
 
-        public static List<Appointment> findUserApptByDate(int userId, DateTime date)
+        public static List<Appointment> findUserApptByDate(int userId, DateTime date, string timeSpan)
         {
             List<Appointment> returnList = new List<Appointment>();
 
             foreach (Appointment appt in apptList)
             {
-                if (DateTime.Parse(appt.start).Month == date.Month && DateTime.Parse(appt.start).Year == date.Year)
+                if (timeSpan == "day")
                 {
-                    returnList.Add(appt);
+                    if ((DateTime.Parse(appt.start).DayOfYear == date.DayOfYear || DateTime.Parse(appt.end).DayOfYear == date.DayOfYear) && DateTime.Parse(appt.start).Year == date.Year)
+                    {
+                        returnList.Add(appt);
+                    }
                 }
+                else
+                {
+                    if ((DateTime.Parse(appt.start).Month == date.Month || DateTime.Parse(appt.end).Month == date.Month) && DateTime.Parse(appt.start).Year == date.Year)
+                    {
+                        returnList.Add(appt);
+                    }
+                }
+
             }
             return returnList;
         }

@@ -20,6 +20,12 @@ namespace C969Assessment
 
         private void modCustBtn_Click(object sender, System.EventArgs e)
         {
+            bool isNull = (customerList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
+
             ModifyCustomerScreen modifyCustomerScreen = new ModifyCustomerScreen(customerList.CurrentRow);
             modifyCustomerScreen.Show();
             modifyCustomerScreen.Focus();
@@ -27,11 +33,14 @@ namespace C969Assessment
 
         private void delCustBtn_Click(object sender, System.EventArgs e)
         {
+            if (customerList.SelectedRows.Count == 0)
+            {
+                return;
+            }
             MySqlDataReader reader;
             DataGridViewSelectedRowCollection deleteRows = customerList.SelectedRows;
 
             // Block deletion if any customer records rely on this address.
-
 
             foreach (DataGridViewRow row in deleteRows)
             {
@@ -52,6 +61,10 @@ namespace C969Assessment
                 }
 
             }
+            refreshBtn_Click(null, null);
+            /*customerList.DataSource = null;
+            Customer.custList = Customer.getCustomers();
+            customerList.DataSource = Customer.custList;*/
         }
 
         private void refreshBtn_Click(object sender, System.EventArgs e)

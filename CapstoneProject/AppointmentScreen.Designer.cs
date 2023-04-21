@@ -52,8 +52,6 @@ namespace C969Assessment
             this.appointmentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.appointmentList.Size = new System.Drawing.Size(776, 348);
             this.appointmentList.TabIndex = 0;
-            this.appointmentList.Enter += new System.EventHandler(this.refreshBtn_Click);
-            this.appointmentList.MouseEnter += new System.EventHandler(this.refreshBtn_Click);
             // 
             // addApptBtn
             // 
@@ -122,7 +120,7 @@ namespace C969Assessment
             this.Controls.Add(this.appointmentList);
             this.Name = "AppointmentScreen";
             this.Text = "Appointments";
-            this.Enter += new System.EventHandler(this.AppointmentScreen_Enter);
+            this.Activated += new System.EventHandler(this.refreshBtn_Click);
             ((System.ComponentModel.ISupportInitialize)(this.appointmentList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.ResumeLayout(false);

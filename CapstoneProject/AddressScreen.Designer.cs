@@ -92,8 +92,6 @@ namespace C969Assessment
             this.addressList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.addressList.Size = new System.Drawing.Size(776, 348);
             this.addressList.TabIndex = 12;
-            this.addressList.Enter += new System.EventHandler(this.refreshBtn_Click);
-            this.addressList.MouseEnter += new System.EventHandler(this.refreshBtn_Click);
             // 
             // searchBtn
             // 
@@ -122,6 +120,7 @@ namespace C969Assessment
             this.Controls.Add(this.addressList);
             this.Name = "AddressScreen";
             this.Text = "Addresses";
+            this.Activated += new System.EventHandler(this.refreshBtn_Click);
             ((System.ComponentModel.ISupportInitialize)(this.addressList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.ResumeLayout(false);

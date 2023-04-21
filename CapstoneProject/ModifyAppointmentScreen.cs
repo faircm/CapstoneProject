@@ -39,6 +39,9 @@ namespace C969Assessment
 
         private void submitBtn_Click(object sender, System.EventArgs e)
         {
+            DateTime startTime = startTimePicker.Value;
+            DateTime endTime = endTimePicker.Value;
+
             try
             {
                 // Cycle through all appointments to check for time conflicts. Skips this appointment's entry in the appointment list.
@@ -60,10 +63,19 @@ namespace C969Assessment
                     }
                 }
 
-                if (startTimePicker.Value.Hour < 9 || (startTimePicker.Value.Hour == 17 && (startTimePicker.Value.Minute > 0 || startTimePicker.Value.Second > 0)) || (endTimePicker.Value.Hour < 9 || (endTimePicker.Value.Hour == 17 && (endTimePicker.Value.Minute > 0 || endTimePicker.Value.Second > 0))))
+                if ((startTime.Hour < 9 || endTime.Hour > 17))
                 {
                     throw new BusinessHoursException();
                 }
+                else if (startTime.Hour > 17)
+                {
+                    throw new BusinessHoursException();
+                }
+                else if (endTime.Hour == 17 && (endTime.Minute > 0 || endTime.Second > 0))
+                {
+                    throw new BusinessHoursException();
+                }
+
                 Appointment newAppt = new Appointment(Int32.Parse(apptIdBox.Text), Int32.Parse(custIdBox.Text), Int32.Parse(userIdBox.Text), titleBox.Text, descBox.Text, locationBox.Text, contactBox.Text, typeBox.Text, urlBox.Text, startTimePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), endTimePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
 
                 Appointment.modifyDb(newAppt);

@@ -34,6 +34,7 @@ namespace C969Assessment
             this.button2 = new System.Windows.Forms.Button();
             this.customersBtn = new System.Windows.Forms.Button();
             this.userApptList = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.refreshBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,9 +45,6 @@ namespace C969Assessment
             this.weekViewBtn = new System.Windows.Forms.RadioButton();
             this.apptCalendar = new System.Windows.Forms.MonthCalendar();
             this.defaultViewBtn = new System.Windows.Forms.RadioButton();
-            this.appointmentBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.locationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +54,10 @@ namespace C969Assessment
             this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.endDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.appointmentBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.generateBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.userApptList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
@@ -114,6 +116,12 @@ namespace C969Assessment
             this.userApptList.Size = new System.Drawing.Size(750, 162);
             this.userApptList.TabIndex = 3;
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Appointment Id";
+            this.Id.Name = "Id";
+            // 
             // refreshBtn
             // 
             this.refreshBtn.Location = new System.Drawing.Point(334, 462);
@@ -137,12 +145,12 @@ namespace C969Assessment
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 272);
+            this.label2.Location = new System.Drawing.Point(12, 254);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(523, 13);
+            this.label2.Size = new System.Drawing.Size(613, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Please select a date, then select the desired filter. Select default to show all " +
-    "appointments for the current user.";
+            this.label2.Text = "Please select a date and desired calendar view, then click Generate Report to vie" +
+    "w appointments during the specified timeframe.";
             // 
             // addressBtn
             // 
@@ -174,7 +182,6 @@ namespace C969Assessment
             this.dayViewBtn.TabStop = true;
             this.dayViewBtn.Text = "Day";
             this.dayViewBtn.UseVisualStyleBackColor = true;
-            this.dayViewBtn.CheckedChanged += new System.EventHandler(this.dayViewBtn_CheckedChanged);
             // 
             // monthViewBtn
             // 
@@ -186,7 +193,6 @@ namespace C969Assessment
             this.monthViewBtn.TabStop = true;
             this.monthViewBtn.Text = "Month";
             this.monthViewBtn.UseVisualStyleBackColor = true;
-            this.monthViewBtn.CheckedChanged += new System.EventHandler(this.monthViewBtn_CheckedChanged);
             // 
             // weekViewBtn
             // 
@@ -198,7 +204,6 @@ namespace C969Assessment
             this.weekViewBtn.TabStop = true;
             this.weekViewBtn.Text = "Week";
             this.weekViewBtn.UseVisualStyleBackColor = true;
-            this.weekViewBtn.CheckedChanged += new System.EventHandler(this.weekViewBtn_CheckedChanged);
             // 
             // apptCalendar
             // 
@@ -216,21 +221,6 @@ namespace C969Assessment
             this.defaultViewBtn.TabStop = true;
             this.defaultViewBtn.Text = "Default";
             this.defaultViewBtn.UseVisualStyleBackColor = true;
-            this.defaultViewBtn.CheckedChanged += new System.EventHandler(this.defaultViewBtn_CheckedChanged);
-            // 
-            // appointmentBindingSource1
-            // 
-            this.appointmentBindingSource1.DataSource = typeof(C969Assessment.Appointment);
-            // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Appointment Id";
-            this.Id.Name = "Id";
             // 
             // customerIdDataGridViewTextBoxColumn
             // 
@@ -290,11 +280,40 @@ namespace C969Assessment
             this.createdByDataGridViewTextBoxColumn.Name = "createdByDataGridViewTextBoxColumn";
             this.createdByDataGridViewTextBoxColumn.Width = 75;
             // 
+            // appointmentBindingSource1
+            // 
+            this.appointmentBindingSource1.DataSource = typeof(C969Assessment.Appointment);
+            // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(C969Assessment.Appointment);
+            // 
+            // generateBtn
+            // 
+            this.generateBtn.Location = new System.Drawing.Point(15, 462);
+            this.generateBtn.Name = "generateBtn";
+            this.generateBtn.Size = new System.Drawing.Size(107, 23);
+            this.generateBtn.TabIndex = 15;
+            this.generateBtn.Text = "Generate Report";
+            this.generateBtn.UseVisualStyleBackColor = true;
+            this.generateBtn.Click += new System.EventHandler(this.generateBtn_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 272);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(324, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Selecting \"Default\" will display all appointments for the current user.";
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 526);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.generateBtn);
             this.Controls.Add(this.defaultViewBtn);
             this.Controls.Add(this.apptCalendar);
             this.Controls.Add(this.weekViewBtn);
@@ -311,6 +330,7 @@ namespace C969Assessment
             this.Controls.Add(this.appointmentsBtn);
             this.Name = "MainScreen";
             this.Text = "Home";
+            this.Activated += new System.EventHandler(this.refreshBtn_Click);
             ((System.ComponentModel.ISupportInitialize)(this.userApptList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
@@ -348,5 +368,7 @@ namespace C969Assessment
         private System.Windows.Forms.DataGridViewTextBoxColumn startDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn endDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdByDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button generateBtn;
+        private System.Windows.Forms.Label label1;
     }
 }

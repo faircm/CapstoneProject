@@ -138,7 +138,7 @@
             this.delCustBtn.Name = "delCustBtn";
             this.delCustBtn.Size = new System.Drawing.Size(105, 35);
             this.delCustBtn.TabIndex = 27;
-            this.delCustBtn.Text = "Delete Customer";
+            this.delCustBtn.Text = " Delete Customer";
             this.delCustBtn.UseVisualStyleBackColor = true;
             this.delCustBtn.Click += new System.EventHandler(this.delCustBtn_Click);
             // 
@@ -199,6 +199,7 @@
             this.Controls.Add(this.custList);
             this.Name = "CustomerSearch";
             this.Text = "CustomerSearch";
+            this.Activated += new System.EventHandler(this.refreshList);
             ((System.ComponentModel.ISupportInitialize)(this.custList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

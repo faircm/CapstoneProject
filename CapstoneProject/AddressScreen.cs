@@ -30,8 +30,12 @@ namespace C969Assessment
         private void delAddBtn_Click(object sender, EventArgs e)
         {
             MySqlDataReader reader;
+            bool isNull = (addressList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
             DataGridViewSelectedRowCollection deleteRows = addressList.SelectedRows;
-
             try
             {
                 foreach (DataGridViewRow row in deleteRows)
@@ -42,6 +46,8 @@ namespace C969Assessment
                     reader.Close();
 
                     Address.addressList.Remove(newAdd);
+
+                    refreshBtn_Click(null, null);
                 }
             }
             catch (MySqlException)
@@ -52,6 +58,10 @@ namespace C969Assessment
 
         private void modAddBtn_Click(object sender, EventArgs e)
         {
+            if (addressList.CurrentRow == null)
+            {
+                return;
+            }
             ModifyAddressScreen modifyAddressScreen = new ModifyAddressScreen(addressList.CurrentRow);
             modifyAddressScreen.Show();
             modifyAddressScreen.Focus();

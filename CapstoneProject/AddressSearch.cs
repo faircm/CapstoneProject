@@ -88,6 +88,11 @@ namespace C969Assessment
                 flag = true;
             }
 
+            if (searchStr == "SELECT * FROM address WHERE")
+            {
+                return;
+            }
+
             searchStr += ";";
             addrList.DataSource = Address.getAddresses(searchStr);
             savedSearchStr = searchStr;
@@ -96,9 +101,15 @@ namespace C969Assessment
 
         private void modAddrBtn_Click(object sender, EventArgs e)
         {
+            bool isNull = (addrList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
             ModifyAddressScreen modifyAddressScreen = new ModifyAddressScreen(addrList.CurrentRow);
             modifyAddressScreen.Show();
             modifyAddressScreen.Focus();
+
         }
 
         private void delAddrBtn_Click(object sender, EventArgs e)
@@ -106,8 +117,12 @@ namespace C969Assessment
 
             MySqlDataReader reader;
             DataGridViewSelectedRowCollection deleteRows = addrList.SelectedRows;
-            Address delAddr = (Address)deleteRows[0].DataBoundItem;
+            if (addrList.SelectedRows.Count == 0)
+            {
+                return;
+            }
 
+            Address delAddr = (Address)deleteRows[0].DataBoundItem;
             // Block deletion if any customer records rely on this address.
             if (Customer.custHasAddress(delAddr.Id))
             {
@@ -118,9 +133,15 @@ namespace C969Assessment
                 MySqlCommand delCmd = new MySqlCommand($"DELETE FROM address WHERE addressId = {delAddr.Id}", DatabaseConnection.connection);
                 reader = delCmd.ExecuteReader();
                 reader.Close();
-                addrList.DataSource = Address.getAddresses(savedSearchStr);
+                refreshList(null, null);
             }
 
+        }
+
+        private void refreshList(object sender, EventArgs e)
+        {
+            addrList.DataSource = null;
+            addrList.DataSource = Address.getAddresses(savedSearchStr);
         }
     }
 }

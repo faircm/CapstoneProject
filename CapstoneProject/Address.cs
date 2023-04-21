@@ -44,8 +44,13 @@ namespace C969Assessment
         public static List<Address> getAddresses(string searchStr)
         {
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
-
             List<Address> addresses = new List<Address>();
+
+            if (searchStr.Length == 0)
+            {
+                return addresses;
+            }
+
             reader = dataAdapter.SelectCommand.ExecuteReader();
 
             while (reader.Read())
@@ -193,17 +198,27 @@ namespace C969Assessment
             return addressStr;
         }
 
-        public static int getIdByAddress(string address)
+        public static string getIdByAddress(string address)
         {
-            int id = 0;
+            List<string> idList = new List<string>();
+            string idStr = "";
             MySqlCommand searchCmd = new MySqlCommand($"SELECT addressId FROM address WHERE address LIKE '%{address}%'", DatabaseConnection.connection);
             reader = searchCmd.ExecuteReader();
-            if (reader.Read())
+
+            while (reader.Read())
             {
-                id = reader.GetInt32("addressId");
+                idList.Add(reader.GetInt32("addressId").ToString());
+
             }
             reader.Close();
-            return id;
+
+            foreach (string id in idList)
+            {
+                idStr += $"{id},";
+            }
+
+            idStr += "-1";
+            return idStr;
         }
 
     }

@@ -8,6 +8,7 @@ namespace C969Assessment
     {
         string searchStr = "SELECT * FROM customer WHERE";
         string savedSearchStr = "";
+
         public CustomerSearch()
         {
             InitializeComponent();
@@ -41,11 +42,11 @@ namespace C969Assessment
 
             if (addressBox.Text.Length > 0 && flag)
             {
-                searchStr += $" AND address LIKE \'%{addressBox.Text}%\'";
+                searchStr += $" AND addressId IN ({Address.getIdByAddress(addressBox.Text)})";
             }
             else if (addressBox.Text.Length > 0 && !flag)
             {
-                searchStr += $" address LIKE \'%{addressBox.Text}%\'";
+                searchStr += $" addressId IN ({Address.getIdByAddress(addressBox.Text)})";
                 flag = true;
             }
 
@@ -59,7 +60,6 @@ namespace C969Assessment
                 {
                     searchStr += " active = 1";
                 }
-
             }
             else if (falseRadio.Checked)
             {
@@ -75,7 +75,10 @@ namespace C969Assessment
                 }
             }
 
-
+            if (searchStr == "SELECT * FROM customer WHERE")
+            {
+                return;
+            }
             searchStr += ";";
             custList.DataSource = Customer.getCustomers(searchStr);
             savedSearchStr = searchStr;
@@ -84,30 +87,54 @@ namespace C969Assessment
 
         private void modCustBtn_Click(object sender, EventArgs e)
         {
-            ModifyCustomerScreen modifyCustomerScreen = new ModifyCustomerScreen(custList.CurrentRow);
+            bool isNull = (custList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
+            ModifyCustomerScreen modifyCustomerScreen = new ModifyCustomerScreen(
+                custList.CurrentRow
+            );
             modifyCustomerScreen.Show();
             modifyCustomerScreen.Focus();
         }
 
         private void delCustBtn_Click(object sender, EventArgs e)
         {
+            if (custList.SelectedRows.Count == 0)
+            {
+                return;
+            }
             MySqlDataReader reader;
             DataGridViewSelectedRowCollection deleteRows = custList.SelectedRows;
             Customer delCust = (Customer)deleteRows[0].DataBoundItem;
 
             if (Appointment.getCustAppts(delCust.Id).Count > 0)
             {
-                MessageBox.Show("You cannot delete a customer associated with one or more appointments.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "You cannot delete a customer associated with one or more appointments.",
+                    "Error!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
                 return;
             }
             else
             {
-                MySqlCommand delCmd = new MySqlCommand($"DELETE FROM customer WHERE customerId = {delCust.Id}", DatabaseConnection.connection);
+                MySqlCommand delCmd = new MySqlCommand(
+                    $"DELETE FROM customer WHERE customerId = {delCust.Id}",
+                    DatabaseConnection.connection
+                );
                 reader = delCmd.ExecuteReader();
                 reader.Close();
                 custList.DataSource = Customer.getCustomers(savedSearchStr);
             }
-           
+        }
+
+        private void refreshList(object sender, EventArgs e)
+        {
+            custList.DataSource = null;
+            custList.DataSource = Customer.getCustomers(savedSearchStr);
         }
     }
 }

@@ -11,6 +11,16 @@ namespace C969Assessment
         {
             InitializeComponent();
 
+            if (Address.addressList.Count == 0)
+            {
+                addIdBox.Text = "1";
+            }
+            else
+            {
+                addIdBox.Text = (Address.addressList[Address.addressList.Count - 1].Id + 1).ToString();
+            }
+
+
             string currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string currentTimeUTC = DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss");
             lastUpdatePicker.Format = DateTimePickerFormat.Custom;
@@ -20,8 +30,6 @@ namespace C969Assessment
             lastUpdatePicker.Value = DateTime.Now;
             createDatePicker.Value = DateTime.Now;
             cityBox.DataSource = Address.cityDict.Values.ToList<string>();
-
-            addIdBox.Text = (Address.addressList[Address.addressList.Count - 1].Id + 1).ToString();
             createdByBox.Text = userContext.getUsername();
             lastUpdateByBox.Text = userContext.getUsername();
         }

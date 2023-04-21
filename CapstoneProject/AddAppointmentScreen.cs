@@ -37,9 +37,20 @@ namespace C969Assessment
         private void submitBtn_Click(object sender, EventArgs e)
         {
             bool custExists = false;
+            DateTime startTime = startTimePicker.Value;
+            DateTime endTime = endTimePicker.Value;
+
             try
             {
-                if (startTimePicker.Value.Hour < 9 || (startTimePicker.Value.Hour == 17 && (startTimePicker.Value.Minute > 0 || startTimePicker.Value.Second > 0)) || (endTimePicker.Value.Hour < 9 || (endTimePicker.Value.Hour == 17 && (endTimePicker.Value.Minute > 0 || endTimePicker.Value.Second > 0))))
+                if ((startTime.Hour < 9 || endTime.Hour > 17))
+                {
+                    throw new BusinessHoursException();
+                }
+                else if (startTime.Hour > 17)
+                {
+                    throw new BusinessHoursException();
+                }
+                else if (endTime.Hour == 17 && (endTime.Minute > 0 || endTime.Second > 0))
                 {
                     throw new BusinessHoursException();
                 }

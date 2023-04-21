@@ -73,7 +73,7 @@ namespace C969Assessment
             }
             if (startDatePicker.Value > endDatePicker.Value)
             {
-                MessageBox.Show("Start date must occur before end date.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Start time must occur before end time.", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 searchStr = "SELECT * FROM appointment WHERE";
                 return;
             }
@@ -87,6 +87,10 @@ namespace C969Assessment
                 {
                     searchStr += $" start >= \'{startDateTimeStr}\' AND end <= \'{endDateTimeStr}\'";
                 }
+            }
+            if (searchStr == "SELECT * FROM appointment WHERE")
+            {
+                return;
             }
 
             searchStr += ";";
@@ -102,6 +106,11 @@ namespace C969Assessment
 
         private void modApptBtn_Click(object sender, EventArgs e)
         {
+            bool isNull = (apptList.CurrentRow == null) ? true : false;
+            if (isNull)
+            {
+                return;
+            }
             ModifyAppointmentScreen modifyAppointmentScreen = new ModifyAppointmentScreen(apptList.CurrentRow);
             modifyAppointmentScreen.Show();
             modifyAppointmentScreen.Focus();
@@ -110,11 +119,21 @@ namespace C969Assessment
         private void delApptBtn_Click(object sender, EventArgs e)
         {
             MySqlDataReader reader;
+            if (apptList.SelectedRows.Count == 0)
+            {
+                return;
+            }
             DataGridViewSelectedRowCollection deleteRows = apptList.SelectedRows;
             Appointment delAppt = (Appointment)deleteRows[0].DataBoundItem;
             MySqlCommand delCmd = new MySqlCommand($"DELETE FROM appointment WHERE appointmentId = {delAppt.Id}", DatabaseConnection.connection);
             reader = delCmd.ExecuteReader();
             reader.Close();
+            apptList.DataSource = Appointment.getAppts(savedSearchStr);
+        }
+
+        private void refreshList(object sender, EventArgs e)
+        {
+            apptList.DataSource = null;
             apptList.DataSource = Appointment.getAppts(savedSearchStr);
         }
     }

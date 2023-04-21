@@ -39,6 +39,11 @@ namespace C969Assessment
             MySqlDataAdapter dataAdapter = new MySqlDataAdapter(searchStr, DatabaseConnection.connection);
 
             List<Customer> customers = new List<Customer>();
+
+            if (searchStr.Length == 0)
+            {
+                return customers;
+            }
             reader = dataAdapter.SelectCommand.ExecuteReader();
             while (reader.Read())
             {
