@@ -4,9 +4,6 @@ namespace C969Assessment
 {
     public class ScheduleConflictException : Exception
     {
-        public ScheduleConflictException()
-        {
-
-        }
+        public ScheduleConflictException() { }
     }
 }

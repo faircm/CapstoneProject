@@ -9,9 +9,7 @@ namespace C969Assessment
 
         public static List<AppointmentType> apptsByType = getApptTypes();
 
-        public AppointmentType(int count, string type)
-        {
-        }
+        public AppointmentType(int count, string type) { }
 
         public static List<AppointmentType> getApptTypes()
         {
@@ -114,21 +112,6 @@ namespace C969Assessment
             returnList.Add(new AppointmentType(numTest, "test"));
 
             return returnList;
-
-            /*apptsByType.Add(new AppointmentType(numPresentation, "Presentation"));
-            apptsByType.Add(new AppointmentType(numScrum, "Scrum"));
-            apptsByType.Add(new AppointmentType(numCodeRev, "Code Review"));
-            apptsByType.Add(new AppointmentType(numSprintPlan, "Sprint Planning"));
-            apptsByType.Add(new AppointmentType(numSprintRev, "Sprint Review"));
-            apptsByType.Add(new AppointmentType(numBacklog, "Backlog Refinement"));
-            apptsByType.Add(new AppointmentType(numRetrospective, "Retrospective"));
-            apptsByType.Add(new AppointmentType(numReleasePlan, "Release Planning"));
-            apptsByType.Add(new AppointmentType(numOneOnOne, "One-on-one"));
-            apptsByType.Add(new AppointmentType(numTeamBuilding, "Team Building"));
-            apptsByType.Add(new AppointmentType(numQuarterlyRev, "Quarterly Review"));
-            apptsByType.Add(new AppointmentType(numAllHands, "All-hands"));
-            apptsByType.Add(new AppointmentType(numOther, "Other"));
-            apptsByType.Add(new AppointmentType(numTest, "test"));*/
         }
     }
 }

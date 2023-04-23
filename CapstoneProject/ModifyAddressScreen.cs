@@ -8,8 +8,6 @@ namespace C969Assessment
     {
         public ModifyAddressScreen(DataGridViewRow address)
         {
-            // 12 FEB 2023 - Updated form to show combobox of city names, ID fetched using Address.returnCityIt()
-
             InitializeComponent();
 
             string currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -34,17 +32,69 @@ namespace C969Assessment
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            if (!cityBox.Items.Contains(cityBox.Text))
+            {
+                MessageBox.Show(
+                    "For \"City\", please choose a value from the drop-down menu.",
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             try
             {
-                Address newAdd = new Address(Int32.Parse(addIdBox.Text), addLine1Box.Text, addLine2Box.Text, Address.returnCityId(cityBox.SelectedItem.ToString()), postalCodeBox.Text, phoneNumBox.Text, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text); ;
+                if (
+                    addIdBox.Text.Length == 0
+                    || addLine1Box.Text.Length == 0
+                    || cityBox.Text.Length == 0
+                    || postalCodeBox.Text.Length == 0
+                    || phoneNumBox.Text.Length == 0
+                )
+                {
+                    throw new FormatException();
+                }
+                int test = 0;
+                if (!Int32.TryParse(postalCodeBox.Text, out test))
+                {
+                    throw new FormatException();
+                }
+
+                Address newAdd = new Address(
+                    Int32.Parse(addIdBox.Text),
+                    addLine1Box.Text,
+                    addLine2Box.Text,
+                    Address.returnCityId(cityBox.SelectedItem.ToString()),
+                    postalCodeBox.Text,
+                    phoneNumBox.Text,
+                    createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
+                    createdByBox.Text,
+                    lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
+                    lastUpdateByBox.Text
+                );
+                ;
 
                 Address.modifyDb(newAdd);
 
-                this.Hide();
+                this.Close();
             }
             catch (FormatException)
             {
-                MessageBox.Show("All fields must be filled out correctly before continuing.", "Error adding appointment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "All fields must be filled out correctly before continuing.",
+                    "Error adding appointment",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+            catch (MySql.Data.MySqlClient.MySqlException)
+            {
+                MessageBox.Show(
+                    "All fields must be filled out correctly before continuing.",
+                    "Error adding appointment",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 

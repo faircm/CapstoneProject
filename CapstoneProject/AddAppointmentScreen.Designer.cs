@@ -328,6 +328,7 @@ namespace C969Assessment
             // typeBox
             // 
             this.typeBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.typeBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.typeBox.FormattingEnabled = true;
             this.typeBox.Items.AddRange(new object[] {
             "Presentation",

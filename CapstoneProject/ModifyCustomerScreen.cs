@@ -6,8 +6,8 @@ namespace C969Assessment
 {
     public partial class ModifyCustomerScreen : Form
     {
-        // 8 FEB 2023, modified form to allow address selection from combobox rather than requiring ID input
         List<string> addressDataSource = new List<string>();
+
         public ModifyCustomerScreen(DataGridViewRow currentRow)
         {
             InitializeComponent();
@@ -30,7 +30,6 @@ namespace C969Assessment
                 {
                     addressDataSource.Add(address.address);
                 }
-
             }
             addressBox.DataSource = addressDataSource;
 
@@ -46,7 +45,6 @@ namespace C969Assessment
             if (selectedCust.active == 1)
             {
                 activeCombo.Text = "True";
-
             }
             else
                 activeCombo.Text = "False";
@@ -55,6 +53,38 @@ namespace C969Assessment
         private void submitBtn_Click(object sender, EventArgs e)
         {
             byte activeVal = 0;
+
+            if (!activeCombo.Items.Contains(activeCombo.Text))
+            {
+                MessageBox.Show(
+                    "For \"Active\", please choose a value from the drop-down menu.",
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            if (!addressBox.Items.Contains(addressBox.Text))
+            {
+                MessageBox.Show(
+                    "For \"Address\", please choose a value from the drop-down menu.",
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            if (custNameBox.Text.Length <= 0)
+            {
+                MessageBox.Show(
+                    "Please ensure all fields are filled out correctly",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             try
             {
                 if (activeCombo.Text == "True")
@@ -63,17 +93,39 @@ namespace C969Assessment
                     activeVal = 1;
                 }
 
-                Customer newCustomer = new Customer(Int32.Parse(custIdBox.Text), custNameBox.Text, Address.returnAddressId(addressBox.SelectedItem.ToString()), activeVal, createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), createdByBox.Text, lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"), lastUpdateByBox.Text);
+                Customer newCustomer = new Customer(
+                    Int32.Parse(custIdBox.Text),
+                    custNameBox.Text,
+                    Address.returnAddressId(addressBox.SelectedItem.ToString()),
+                    activeVal,
+                    createDatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
+                    createdByBox.Text,
+                    lastUpdatePicker.Value.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
+                    lastUpdateByBox.Text
+                );
 
                 Customer.modifyDb(newCustomer);
             }
             catch (FormatException)
             {
-                MessageBox.Show("All fields must be filled out correctly before continuing.", "Error adding appointment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "All fields must be filled out correctly before continuing.",
+                    "Error adding appointment",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+            catch (MySql.Data.MySqlClient.MySqlException)
+            {
+                MessageBox.Show(
+                    "All fields must be filled out correctly before continuing.",
+                    "Error adding appointment",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
 
             this.Close();
-
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

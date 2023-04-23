@@ -6,7 +6,6 @@ namespace C969Assessment
 {
     public partial class AppointmentScreen : Form
     {
-
         public AppointmentScreen()
         {
             InitializeComponent();
@@ -15,7 +14,8 @@ namespace C969Assessment
 
         private void addApptBtn_Click(object sender, EventArgs e)
         {
-            AddAppointmentScreen addAppointmentScreen = new AddAppointmentScreen(); ;
+            AddAppointmentScreen addAppointmentScreen = new AddAppointmentScreen();
+            ;
             addAppointmentScreen.Show();
             addAppointmentScreen.Focus();
         }
@@ -27,7 +27,9 @@ namespace C969Assessment
             {
                 return;
             }
-            ModifyAppointmentScreen modifyAppointmentScreen = new ModifyAppointmentScreen(appointmentList.CurrentRow);
+            ModifyAppointmentScreen modifyAppointmentScreen = new ModifyAppointmentScreen(
+                appointmentList.CurrentRow
+            );
             modifyAppointmentScreen.Show();
             modifyAppointmentScreen.Focus();
         }
@@ -50,7 +52,10 @@ namespace C969Assessment
             foreach (DataGridViewRow row in deleteRows)
             {
                 Appointment newAppt = (Appointment)row.DataBoundItem;
-                MySqlCommand command = new MySqlCommand($"DELETE FROM appointment WHERE appointmentId = {newAppt.Id}", DatabaseConnection.connection);
+                MySqlCommand command = new MySqlCommand(
+                    $"DELETE FROM appointment WHERE appointmentId = {newAppt.Id}",
+                    DatabaseConnection.connection
+                );
                 reader = command.ExecuteReader();
                 reader.Close();
 
@@ -58,11 +63,6 @@ namespace C969Assessment
             }
 
             refreshBtn_Click(null, null);
-
-            /*            appointmentList.DataSource = null;
-                        Appointment.apptList = Appointment.getAppts();
-                        appointmentList.DataSource = Appointment.apptList;*/
-
         }
 
         private void AppointmentScreen_Enter(object sender, EventArgs e)
@@ -73,7 +73,6 @@ namespace C969Assessment
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            //IMPLEMENT
             AppointmentSearch appointmentSearch = new AppointmentSearch();
             appointmentSearch.Show();
             appointmentSearch.Focus();

@@ -6,7 +6,6 @@ namespace C969Assessment
 {
     public partial class AddressScreen : Form
     {
-
         public AddressScreen()
         {
             InitializeComponent();
@@ -41,7 +40,10 @@ namespace C969Assessment
                 foreach (DataGridViewRow row in deleteRows)
                 {
                     Address newAdd = (Address)row.DataBoundItem;
-                    MySqlCommand command = new MySqlCommand($"DELETE FROM address WHERE addressId = {newAdd.Id}", DatabaseConnection.connection);
+                    MySqlCommand command = new MySqlCommand(
+                        $"DELETE FROM address WHERE addressId = {newAdd.Id}",
+                        DatabaseConnection.connection
+                    );
                     reader = command.ExecuteReader();
                     reader.Close();
 
@@ -52,7 +54,12 @@ namespace C969Assessment
             }
             catch (MySqlException)
             {
-                MessageBox.Show("You cannot delete an address which is currently associated with a customer", "Error deleting address", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "You cannot delete an address which is currently associated with a customer",
+                    "Error deleting address",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -62,7 +69,9 @@ namespace C969Assessment
             {
                 return;
             }
-            ModifyAddressScreen modifyAddressScreen = new ModifyAddressScreen(addressList.CurrentRow);
+            ModifyAddressScreen modifyAddressScreen = new ModifyAddressScreen(
+                addressList.CurrentRow
+            );
             modifyAddressScreen.Show();
             modifyAddressScreen.Focus();
         }

@@ -21,68 +21,79 @@ namespace C969Assessment
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            // Set flag to determine if query has multiple parameters
-            bool flag = false;
+            try
+            {
+                bool flag = false;
 
-            if (idBox.Text.Length > 0)
-            {
-                searchStr += $" customerId = {idBox.Text}";
-                flag = true;
-            }
-
-            if (nameBox.Text.Length > 0 && flag)
-            {
-                searchStr += $" AND customerName LIKE \'%{nameBox.Text}%\'";
-            }
-            else if (nameBox.Text.Length > 0 && !flag)
-            {
-                searchStr += $" customerName LIKE \'%{nameBox.Text}%\'";
-                flag = true;
-            }
-
-            if (addressBox.Text.Length > 0 && flag)
-            {
-                searchStr += $" AND addressId IN ({Address.getIdByAddress(addressBox.Text)})";
-            }
-            else if (addressBox.Text.Length > 0 && !flag)
-            {
-                searchStr += $" addressId IN ({Address.getIdByAddress(addressBox.Text)})";
-                flag = true;
-            }
-
-            if (trueRadio.Checked)
-            {
-                if (flag)
+                if (idBox.Text.Length > 0)
                 {
-                    searchStr += " AND active = 1";
+                    int id = 0;
+                    if (Int32.TryParse(idBox.Text, out id))
+                    {
+                        searchStr += $" customerId = {idBox.Text}";
+                        flag = true;
+                    }
                 }
-                else
+
+                if (nameBox.Text.Length > 0 && flag)
                 {
-                    searchStr += " active = 1";
+                    searchStr += $" AND customerName LIKE \'%{nameBox.Text}%\'";
                 }
-            }
-            else if (falseRadio.Checked)
-            {
+                else if (nameBox.Text.Length > 0 && !flag)
+                {
+                    searchStr += $" customerName LIKE \'%{nameBox.Text}%\'";
+                    flag = true;
+                }
+
+                if (addressBox.Text.Length > 0 && flag)
+                {
+                    searchStr +=
+                        $" AND addressId IN ({Address.getIdByAddressSearch(addressBox.Text)})";
+                }
+                else if (addressBox.Text.Length > 0 && !flag)
+                {
+                    searchStr += $" addressId IN ({Address.getIdByAddressSearch(addressBox.Text)})";
+                    flag = true;
+                }
+
+                if (trueRadio.Checked)
                 {
                     if (flag)
                     {
-                        searchStr += " AND active = 0";
+                        searchStr += " AND active = 1";
                     }
                     else
                     {
-                        searchStr += " active = 0";
+                        searchStr += " active = 1";
                     }
                 }
-            }
+                else if (falseRadio.Checked)
+                {
+                    {
+                        if (flag)
+                        {
+                            searchStr += " AND active = 0";
+                        }
+                        else
+                        {
+                            searchStr += " active = 0";
+                        }
+                    }
+                }
 
-            if (searchStr == "SELECT * FROM customer WHERE")
+                if (searchStr == "SELECT * FROM customer WHERE")
+                {
+                    return;
+                }
+                searchStr += ";";
+                custList.DataSource = Customer.getCustomers(searchStr);
+                savedSearchStr = searchStr;
+                searchStr = "SELECT * FROM customer WHERE";
+            }
+            catch (MySql.Data.MySqlClient.MySqlException)
             {
                 return;
             }
-            searchStr += ";";
-            custList.DataSource = Customer.getCustomers(searchStr);
-            savedSearchStr = searchStr;
-            searchStr = "SELECT * FROM customer WHERE";
         }
 
         private void modCustBtn_Click(object sender, EventArgs e)

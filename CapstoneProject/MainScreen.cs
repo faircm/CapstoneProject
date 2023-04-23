@@ -57,15 +57,27 @@ namespace C969Assessment
             if (dayViewBtn.Checked)
             {
                 apptCalendar.SelectionStart = apptCalendar.SelectionEnd;
-                userApptList.DataSource = Appointment.findUserApptByDate(userContext.getUserId(), apptCalendar.SelectionStart, "day");
+                userApptList.DataSource = Appointment.findUserApptByDate(
+                    userContext.getUserId(),
+                    apptCalendar.SelectionStart,
+                    "day"
+                );
             }
             else if (weekViewBtn.Checked)
             {
                 int dayOfWeek = (int)apptCalendar.SelectionStart.DayOfWeek + 1;
                 DateTime newStart = apptCalendar.SelectionStart.AddDays((-dayOfWeek));
                 apptCalendar.SelectionStart = newStart.AddHours(11).AddMinutes(59).AddSeconds(59);
-                apptCalendar.SelectionEnd = apptCalendar.SelectionStart.AddDays(7).AddHours(11).AddMinutes(59).AddSeconds(59);
-                userApptList.DataSource = Appointment.findUserApptByDate(userContext.getUserId(), apptCalendar.SelectionStart, apptCalendar.SelectionEnd);
+                apptCalendar.SelectionEnd = apptCalendar.SelectionStart
+                    .AddDays(7)
+                    .AddHours(11)
+                    .AddMinutes(59)
+                    .AddSeconds(59);
+                userApptList.DataSource = Appointment.findUserApptByDate(
+                    userContext.getUserId(),
+                    apptCalendar.SelectionStart,
+                    apptCalendar.SelectionEnd
+                );
             }
             else if (monthViewBtn.Checked)
             {
@@ -73,7 +85,11 @@ namespace C969Assessment
                 int selectedYear = apptCalendar.SelectionStart.Year;
                 string convertToDT = $"{selectedMonth}/1/{selectedYear}";
                 DateTime convertedDate = DateTime.Parse(convertToDT);
-                userApptList.DataSource = Appointment.findUserApptByDate(userContext.getUserId(), convertedDate, "month");
+                userApptList.DataSource = Appointment.findUserApptByDate(
+                    userContext.getUserId(),
+                    convertedDate,
+                    "month"
+                );
             }
             else
             {

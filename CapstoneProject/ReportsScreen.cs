@@ -10,20 +10,20 @@ namespace C969Assessment
     public partial class ReportsScreen : Form
     {
         private MySqlDataReader reader;
-        private MySqlCommand userCmd = new MySqlCommand($"SELECT userName, userId FROM user", DatabaseConnection.connection);
+        private MySqlCommand userCmd = new MySqlCommand(
+            $"SELECT userName, userId FROM user",
+            DatabaseConnection.connection
+        );
 
         private byte selectedReport = 0;
         private List<Appointment> userAppts = new List<Appointment>();
         private List<Appointment> custAppts = new List<Appointment>();
 
-        // Create a dictionary to hold user IDs and easily readable usernames.
         private Dictionary<int, string> userDict = new Dictionary<int, string>();
 
-        // Create a dictionary to hold customer IDs and easily readable customer names
         private Dictionary<int, string> custDict = new Dictionary<int, string>();
 
         private List<string> apptList = new List<string>();
-
 
         public ReportsScreen()
         {
@@ -32,11 +32,8 @@ namespace C969Assessment
             userSelectBox.Text = "Select user";
             custSelectBox.Text = "Select customer";
 
-            // BEGIN: User combobox data source creation
-
             reader = userCmd.ExecuteReader();
 
-            // Populate dictionary with usernames
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -54,9 +51,6 @@ namespace C969Assessment
             {
                 userSelectBox.Items.Add(value);
             }
-            // END: User combobox data source creation
-
-            // BEGIN: Customer combobox data source creation
 
             foreach (Customer cust in Customer.custList)
             {
@@ -69,11 +63,17 @@ namespace C969Assessment
             {
                 custSelectBox.Items.Add(value);
             }
-            // END: Customer combobox data source creation
         }
 
         private void apptTypeReportBtn_Click(object sender, EventArgs e)
         {
+            apptCountBox.Clear();
+            apptList.Clear();
+
+            if (monthSelectBox.SelectedIndex < 0)
+            {
+                return;
+            }
             selectedReport = 1;
 
             int numPresentation = 0;
@@ -95,7 +95,10 @@ namespace C969Assessment
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < appointments.Count; i++)
             {
-                if (DateTime.Parse(appointments[i].start).Month == monthSelectBox.SelectedIndex + 1)
+                if (
+                    DateTime.Parse(appointments[i].start).Month == monthSelectBox.SelectedIndex + 1
+                    && DateTime.Parse(appointments[i].start).Year == DateTime.Now.Year
+                )
                 {
                     switch (appointments[i].type)
                     {
@@ -162,20 +165,34 @@ namespace C969Assessment
                 }
             }
             apptList.Add(monthSelectBox.SelectedItem.ToString());
-            apptList.Add($"Number of Presentation meetings: {numPresentation}");
-            apptList.Add($"Number of Scrum meetings: {numScrum}");
-            apptList.Add($"Number of Code Review meetings: {numCodeRev}");
-            apptList.Add($"Number of Sprint Planning meetings: {numSprintPlan}");
-            apptList.Add($"Number of Sprint Review meetings: {numSprintRev}");
-            apptList.Add($"Number of Backlog Refinement meetings: {numBacklog}");
-            apptList.Add($"Number of Retrospective meetings: {numRetrospective}");
-            apptList.Add($"Number of Release Planning meetings: {numReleasePlan}");
-            apptList.Add($"Number of One-on-one meetings: {numOneOnOne}");
-            apptList.Add($"Number of Team Building meetings: {numTeamBuilding}");
-            apptList.Add($"Number of Quarterly review meetings: {numQuarterlyRev}");
-            apptList.Add($"Number of All-hands meetings: {numAllHands}");
-            apptList.Add($"Number of Other meetings: {numOther}");
-            apptList.Add($"Number of test meetings: {numTest}");
+            if (numPresentation > 0)
+                apptList.Add($"Number of Presentation meetings: {numPresentation}");
+            if (numScrum > 0)
+                apptList.Add($"Number of Scrum meetings: {numScrum}");
+            if (numCodeRev > 0)
+                apptList.Add($"Number of Code Review meetings: {numCodeRev}");
+            if (numSprintPlan > 0)
+                apptList.Add($"Number of Sprint Planning meetings: {numSprintPlan}");
+            if (numSprintRev > 0)
+                apptList.Add($"Number of Sprint Review meetings: {numSprintRev}");
+            if (numBacklog > 0)
+                apptList.Add($"Number of Backlog Refinement meetings: {numBacklog}");
+            if (numRetrospective > 0)
+                apptList.Add($"Number of Retrospective meetings: {numRetrospective}");
+            if (numReleasePlan > 0)
+                apptList.Add($"Number of Release Planning meetings: {numReleasePlan}");
+            if (numOneOnOne > 0)
+                apptList.Add($"Number of One-on-one meetings: {numOneOnOne}");
+            if (numTeamBuilding > 0)
+                apptList.Add($"Number of Team Building meetings: {numTeamBuilding}");
+            if (numQuarterlyRev > 0)
+                apptList.Add($"Number of Quarterly review meetings: {numQuarterlyRev}");
+            if (numAllHands > 0)
+                apptList.Add($"Number of All-hands meetings: {numAllHands}");
+            if (numOther > 0)
+                apptList.Add($"Number of Other meetings: {numOther}");
+            if (numTest > 0)
+                apptList.Add($"Number of test meetings: {numTest}");
 
             foreach (string appt in apptList)
             {
@@ -183,24 +200,34 @@ namespace C969Assessment
             }
 
             apptCountBox.Visible = true;
+            dateTimeStamp.Text =
+                $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}";
         }
 
         private void userSchedBtn_Click(object sender, EventArgs e)
         {
+            apptCountBox.Clear();
+            ReportViewer.DataSource = null;
             selectedReport = 2;
             int userId = userSelectBox.SelectedIndex + 1;
             userAppts = Appointment.getCurrentUserAppts(userId);
             ReportViewer.DataSource = userAppts;
             apptCountBox.Visible = false;
+            dateTimeStamp.Text =
+                $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}";
         }
 
         private void custSchedBtn_Click(object sender, EventArgs e)
         {
+            apptCountBox.Clear();
+            ReportViewer.DataSource = null;
             selectedReport = 3;
             int custId = custSelectBox.SelectedIndex + 1;
             custAppts = Appointment.getCustAppts(custId);
             ReportViewer.DataSource = custAppts;
             apptCountBox.Visible = false;
+            dateTimeStamp.Text =
+                $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}";
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -208,42 +235,89 @@ namespace C969Assessment
             this.Close();
         }
 
-        // 7 FEB 2023 - Added download report functionality
         private void downloadBtn_Click(object sender, EventArgs e)
         {
-            if (selectedReport == 1)
+            try
             {
-                StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "appointmentList.csv"));
-
-                foreach (string appt in apptList)
+                if (selectedReport == 1)
                 {
-                    writer.Write(appt + "\n");
-                    writer.Flush();
+                    StreamWriter writer = new StreamWriter(
+                        Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                            $"appointmentList.csv"
+                        )
+                    );
+
+                    foreach (string appt in apptList)
+                    {
+                        writer.Write(appt + "\n");
+                        writer.Flush();
+                    }
+                    writer.WriteLine(
+                        $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}"
+                    );
+                    MessageBox.Show(
+                        "Meeting report downloaded to My Documents folder",
+                        "Success",
+                        MessageBoxButtons.OK
+                    );
+                    writer.Close();
                 }
-                MessageBox.Show("Meeting report downloaded to My Documents folder", "Success", MessageBoxButtons.OK);
-                writer.Close();
+                else if (selectedReport == 2)
+                {
+                    StreamWriter writer = new StreamWriter(
+                        Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                            "userAppointments.csv"
+                        )
+                    );
+                    foreach (Appointment appt in userAppts)
+                    {
+                        writer.Write(appt.toString());
+                    }
+                    writer.WriteLine(
+                        $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}"
+                    );
+                    MessageBox.Show(
+                        "User schedule downloaded to My Documents folder",
+                        "Success",
+                        MessageBoxButtons.OK
+                    );
+                    writer.Close();
+                }
+                else if (selectedReport == 3)
+                {
+                    StreamWriter writer = new StreamWriter(
+                        Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                            "customerAppointments.csv"
+                        )
+                    );
+
+                    foreach (Appointment appt in custAppts)
+                    {
+                        writer.Write(appt.toString());
+                    }
+                    writer.WriteLine(
+                        $"Report generated on {DateTime.Now.ToShortDateString()} at {DateTime.Now.ToShortTimeString()}"
+                    );
+
+                    MessageBox.Show(
+                        "Customer schedule downloaded to My Documents folder",
+                        "Success",
+                        MessageBoxButtons.OK
+                    );
+                    writer.Close();
+                }
             }
-            else if (selectedReport == 2)
+            catch (IOException)
             {
-                StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "userAppointments.csv"));
-                foreach (Appointment appt in userAppts)
-                {
-
-                    writer.Write(appt.toString());
-                }
-                MessageBox.Show("User schedule downloaded to My Documents folder", "Success", MessageBoxButtons.OK);
-                writer.Close();
-            }
-            else if (selectedReport == 3)
-            {
-                StreamWriter writer = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "customerAppointments.csv"));
-
-                foreach (Appointment appt in custAppts)
-                {
-                    writer.Write(appt.toString());
-                }
-                MessageBox.Show("Customer schedule downloaded to My Documents folder", "Success", MessageBoxButtons.OK);
-                writer.Close();
+                MessageBox.Show(
+                    "The report file cannot be written to while it is being edited. Please close the file and try again.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

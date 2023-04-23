@@ -41,6 +41,7 @@ namespace C969Assessment
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.apptCountBox = new System.Windows.Forms.RichTextBox();
             this.downloadBtn = new System.Windows.Forms.Button();
+            this.dateTimeStamp = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ReportViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -154,11 +155,20 @@ namespace C969Assessment
             this.downloadBtn.UseVisualStyleBackColor = true;
             this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
             // 
+            // dateTimeStamp
+            // 
+            this.dateTimeStamp.AutoSize = true;
+            this.dateTimeStamp.Location = new System.Drawing.Point(215, 418);
+            this.dateTimeStamp.Name = "dateTimeStamp";
+            this.dateTimeStamp.Size = new System.Drawing.Size(0, 13);
+            this.dateTimeStamp.TabIndex = 12;
+            // 
             // ReportsScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dateTimeStamp);
             this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.apptCountBox);
             this.Controls.Add(this.closeBtn);
@@ -173,6 +183,7 @@ namespace C969Assessment
             this.Text = "Reports";
             ((System.ComponentModel.ISupportInitialize)(this.ReportViewer)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -189,5 +200,6 @@ namespace C969Assessment
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.RichTextBox apptCountBox;
         private System.Windows.Forms.Button downloadBtn;
+        private System.Windows.Forms.Label dateTimeStamp;
     }
 }

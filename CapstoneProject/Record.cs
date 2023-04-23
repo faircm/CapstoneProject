@@ -2,7 +2,7 @@
 
 namespace C969Assessment
 {
-    public class Record
+    public abstract class Record
     {
         public int Id { get; set; }
         public string createDate { get; set; }
@@ -11,6 +11,5 @@ namespace C969Assessment
         public string lastUpdateBy { get; set; }
 
         public static MySqlDataReader reader;
-
     }
 }

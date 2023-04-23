@@ -26,7 +26,9 @@ namespace C969Assessment
                 return;
             }
 
-            ModifyCustomerScreen modifyCustomerScreen = new ModifyCustomerScreen(customerList.CurrentRow);
+            ModifyCustomerScreen modifyCustomerScreen = new ModifyCustomerScreen(
+                customerList.CurrentRow
+            );
             modifyCustomerScreen.Show();
             modifyCustomerScreen.Focus();
         }
@@ -40,31 +42,33 @@ namespace C969Assessment
             MySqlDataReader reader;
             DataGridViewSelectedRowCollection deleteRows = customerList.SelectedRows;
 
-            // Block deletion if any customer records rely on this address.
-
             foreach (DataGridViewRow row in deleteRows)
             {
                 Customer newCust = (Customer)row.DataBoundItem;
 
                 if (Appointment.getCustAppts(newCust.Id).Count > 0)
                 {
-                    MessageBox.Show("You cannot delete a customer associated with one or more appointments.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "You cannot delete a customer associated with one or more appointments.",
+                        "Error!",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
                     return;
                 }
                 else
                 {
-                    MySqlCommand command = new MySqlCommand($"DELETE FROM customer WHERE customerId = {newCust.Id}", DatabaseConnection.connection);
+                    MySqlCommand command = new MySqlCommand(
+                        $"DELETE FROM customer WHERE customerId = {newCust.Id}",
+                        DatabaseConnection.connection
+                    );
                     reader = command.ExecuteReader();
                     reader.Close();
 
                     Customer.custList.Remove(newCust);
                 }
-
             }
             refreshBtn_Click(null, null);
-            /*customerList.DataSource = null;
-            Customer.custList = Customer.getCustomers();
-            customerList.DataSource = Customer.custList;*/
         }
 
         private void refreshBtn_Click(object sender, System.EventArgs e)
@@ -72,7 +76,6 @@ namespace C969Assessment
             customerList.DataSource = null;
             Customer.custList = Customer.getCustomers();
             customerList.DataSource = Customer.custList;
-
         }
 
         private void searchBtn_Click(object sender, System.EventArgs e)
